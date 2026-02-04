@@ -1,7 +1,7 @@
 #!bin/bash
-$A="Luffy"
-$B="Naruto"
-$C="Sanji"
+$A=Luffy
+$B=Naruto
+$C=Sanji
 echo "$A: Gomu Gomu na pistollluu"
 echo "$A: eat..."
 echo "$B: Ero Senseii"
