@@ -13,7 +13,7 @@ if [ $User_id -ne 0 ]; then
 fi
 
 echo "installing python"
-dnf install nginx -y
+dnf install python -y
 
 if [ $? -ne 0 ]; then
     echo "Instllation failed...python"
