@@ -12,11 +12,12 @@ if [ $User_id -ne 0 ]; then
     exit 1
 fi
 
-echo "installing nginx"
+echo "installing python"
 dnf install nginx -y
 
 if [ $? -ne 0 ]; then
-    echo "Instllation failed...nginx"
+    echo "Instllation failed...python"
     exit 1
 else
-    echo "Installation Success..nginx"
+    echo "Installation Success..python"
+fi
