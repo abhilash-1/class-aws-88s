@@ -12,6 +12,6 @@ validate(){
 }
 
 dnf install nginx -y &>> logging.txt
-validate ($?, "ngnix")
+validate $? "ngnix"
 dnf install python -y &>> logging.txt
-validate ($?, "python")
+validate $? "python"
