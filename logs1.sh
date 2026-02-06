@@ -18,10 +18,10 @@ validate(){
 }
 
 #for package in $@
-dnf install nodejs -y &>> Logs_file
+dnf install nodejs -y &>> $Logs_file
 validate $? "nodejs"
-dnf install redis -y &>> Logs_file
+dnf install redis -y &>> $Logs_file
 validate $? "redis"
-dnf install nginx -y &>> Logs_file
+dnf install nginx -y &>> $Logs_file
 validate $? "nginx"
 
