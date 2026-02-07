@@ -12,7 +12,7 @@ if [ $User_id -ne 0 ]; then
 fi
 
 Logs_folder=$"/var/logs/shell-script"
-Logs_file=$"/var/logs/shell-script/$0.log"
+Logs_file=$"/var/logs/shell-script/"$0".log"
 
 echo "Creating directory in /var/logs path"
 
