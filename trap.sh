@@ -2,7 +2,7 @@
 
 set -e
 
-trap "Script failed at line number $LINENO,and at Command:$BASH_COMMAND" ERR
+trap 'Script failed at line number $LINENO,and at Command:$BASH_COMMAND' ERR
 
 echo "yo mann"
 echo "hi dudeee"
