@@ -18,7 +18,7 @@ Logs_file=$"/var/logs/shell-script/"$0".log"
 
 echo "Creating directory in /var/logs path"
 
-mkdir -p $Logs_folder
+mkdir -p "$Logs_folder"
 
 validate(){
     set +e
@@ -33,6 +33,7 @@ validate(){
 
 for package in "$@" # it will take all args passed by the user and store each of them in package and iterate
 do
+    set -e
     echo "Installing :$package"
     dnf install $package -y &>> $Logs_file
     validate $? "$package"
