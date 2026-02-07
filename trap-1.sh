@@ -6,9 +6,9 @@ R='\e[31m'
 G='\e[32m'
 Y='\e[33m'
 
-echo "$Y for loop"
+echo -e "$Y for loop"
 
-echo "$R using for loop to execute multiple commands and $G making it flexible so it can accept any number of arguments"
+echo -e "$R using for loop to execute multiple commands and $G making it flexible so it can accept any number of arguments"
 
 User_id=$(id -u)
 
