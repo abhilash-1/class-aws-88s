@@ -11,8 +11,8 @@ if [ $User_id -ne 0 ]; then
     exit 1
 fi
 
-Logs_folder=$("/var/logs/shell-script")
-Logs_file=$("/var/logs/shell-script/$0.log")
+Logs_folder=$"/var/logs/shell-script"
+Logs_file=$"/var/logs/shell-script/$0.log"
 
 echo "Creating directory in /var/logs path"
 
@@ -26,7 +26,7 @@ validate(){
     fi
 }
 
-for package in $@ | tee -a $Logs_file # it will take all args passed by the user and store each of them in package and iterate
+for package in "$@" # it will take all args passed by the user and store each of them in package and iterate
 do
     echo "Installing :$package"
     dnf install @package -y &>> $Logs_file
