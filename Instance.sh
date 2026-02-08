@@ -10,15 +10,15 @@ Domain_name="100pushups.online"
 for instance in "$@"
 do
     echo "Creating Instance"
-    Instance_ID=$(aws ec2 run-instances --image-id ami-0220d79f3f480ecf5 --instance-type t3.micro --security-group-ids sg-07afeb4dfbab74912 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]')
+    Instance_ID=$(aws ec2 run-instances --image-id ami-0220d79f3f480ecf5 --instance-type t3.micro --security-group-ids sg-07afeb4dfbab74912 --query 'Instances[0].InstanceId'--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]')
     echo "Created the Instance successfully=========="
-    if [ $instance -eq "Frontend" ]; then
+    if [ $instance == "Frontend" ]; then
         IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PublicIpAddress' --output text --region us-east-1)
-        echo "Public_IP:$IP"
+        echo "IP:$IP"
         Record_name="$Domain_name"
     else
         IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text --region us-east-1)
-        echo "Private_IP:$IP"
+        echo "IP:$IP"
         Record_name="$Instance.$Domain_name"
     fi
 
