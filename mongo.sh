@@ -34,7 +34,7 @@ for package in "$@"
 do
 
     echo "Installing $package"
-    echo "Before Installing we arechecking if its already installed or not"
+    echo "Before Installing we are checking if its already installed or not"
     dnf list installed $package -y &>>$Logs_file
     if [ $? -ne 0 ]; then
         echo -e "$Y The $package is already installed so...skipping it..."
