@@ -20,6 +20,7 @@ fi
 validate(){
     if [ $1 -ne 0 ]; then
         echo " $R $2: .....FAILED"
+        exit 1
     else
         echo "$G $2:....SUCCESS"
     fi
@@ -35,10 +36,12 @@ do
     echo "Installing $package"
     echo "Before Installing we arechecking if its already installed or not"
     dnf list installed $package -y
-    if [ $? -eq 0 ]; then
+    if [ $? -ne 0 ]; then
         echo -e "$Y The $package is already installed so...skipping it..."
+        exit 1
     else
         dnf install "$package" -y
         validate $? "Nginx Installation"
+    fi
 
 done
