@@ -19,7 +19,7 @@ fi
 
 validate(){
     if [ $1 -ne 0 ]; then
-        echo " $R $2: .....FAILED"
+        echo -e " $R $2: .....FAILED"
         exit 1
     else
         echo -e "$G $2:....SUCCESS"
@@ -27,7 +27,7 @@ validate(){
 }
 
 echo "Creating Logs_folder in /var/logs/"
-mkdir -p "$Logs_folder" &>>$Logs_file
+mkdir -p "$Logs_folder"
 validate $? "Folder Creation"
 
 for package in "$@"
