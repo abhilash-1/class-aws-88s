@@ -34,7 +34,7 @@ for package in "$@"
 do
     echo "Checking if there are any parameters passed"
     if [ $# -eq 0 ]; then 
-        echo "you must pass the package name as parameters here when u are executing the file name"
+        echo "you must pass the package name as parameters here when u are executing the file"
         exit 1
     fi
     echo "Installing $package"
@@ -42,7 +42,7 @@ do
     dnf list installed $package -y &>>$Logs_file
     if [ $? -eq 0 ]; then
         echo -e "$Y The $package is already installed so...skipping it..."
-        exit 1
+        continue
     else
         echo -e " $Y The $package is not installed so..installing it"
         dnf install "$package" -y &>>$Logs_file
