@@ -17,6 +17,12 @@ else
     echo -e " $G You are in root directory or you have sudo access...so proceed forward"
 fi
 
+echo "Checking if there are any parameters passed"
+    if [ $# -eq 0 ]; then 
+        echo "you must pass the package name as parameters here when u are executing the file"
+        exit 1
+    fi
+
 validate(){
     if [ $1 -ne 0 ]; then
         echo -e " $R $2: .....FAILED"
@@ -32,11 +38,6 @@ validate $? "Folder Creation"
 
 for package in "$@"
 do
-    echo "Checking if there are any parameters passed"
-    if [ $# -eq 0 ]; then 
-        echo "you must pass the package name as parameters here when u are executing the file"
-        exit 1
-    fi
     echo "Installing $package"
     echo "Before Installing we are checking if its already installed or not"
     dnf list installed $package -y &>>$Logs_file
