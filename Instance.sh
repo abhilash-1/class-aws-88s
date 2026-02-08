@@ -11,18 +11,18 @@ for instance in "$@"
 do
     echo "Creating Instance"
     Instance_ID=$(aws ec2 run-instances --image-id ami-0220d79f3f480ecf5 --instance-type t3.micro --security-group-ids sg-07afeb4dfbab74912 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]')
-
+    echo "Created the Instance successfully=========="
     if [ $instance -eq "Frontend" ]; then
         IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PublicIpAddress' --output text --region us-east-1)
-        echo "Public_IP:$Public_IP"
+        echo "Public_IP:$IP"
         Record_name="$Domain_name"
     else
         IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text --region us-east-1)
-        echo "Private_IP:$Private_IP"
+        echo "Private_IP:$IP"
         Record_name="$Instance.$Domain_name"
     fi
 
-  
+    echo "creating A record"
     aws route53 change-resource-record-sets --hosted-zone-id Z07005823OXCP6HOGBEO5 --change-batch '{
     "Comment": "Creating an A record for example.com",
     "Changes": [
@@ -42,6 +42,6 @@ do
     ]
     }
     '
-    echo "Instance Created: $Instance"
+    echo "Created A record for : $Instance instance"
 
 done
