@@ -19,7 +19,7 @@ fi
 
 echo "Checking if there are any parameters passed"
     if [ $# -eq 0 ]; then 
-        echo "you must pass the package name as parameters here when u are executing the file"
+        echo -e " $R you must pass the package name as parameters here when u are executing the file"
         exit 1
     fi
 
