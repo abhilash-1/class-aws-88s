@@ -37,10 +37,11 @@ do
     echo "Installing $package"
     echo "Before Installing we are checking if its already installed or not"
     dnf list installed $package -y &>>$Logs_file
-    if [ $? -ne 0 ]; then
+    if [ $? -eq 0 ]; then
         echo -e "$Y The $package is already installed so...skipping it..."
         exit 1
     else
+        echo -e " $Y The $package is not installed so..installing it"
         dnf install "$package" -y &>>$Logs_file
         validate $? "$package Installation"
     fi
