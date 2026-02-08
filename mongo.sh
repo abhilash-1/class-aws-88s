@@ -32,8 +32,11 @@ validate $? "Folder Creation"
 
 for package in "$@"
 do
-    
-
+    echo "Checking if there are any parameters passed"
+    if [ $# -eq 0 ]; then 
+        echo "you must pass the package name as parameters here when u are executing the file name"
+        exit 1
+    fi
     echo "Installing $package"
     echo "Before Installing we are checking if its already installed or not"
     dnf list installed $package -y &>>$Logs_file
