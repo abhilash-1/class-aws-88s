@@ -22,7 +22,7 @@ validate(){
         echo " $R $2: .....FAILED"
         exit 1
     else
-        echo "$G $2:....SUCCESS"
+        echo -e "$G $2:....SUCCESS"
     fi
 }
 
@@ -32,6 +32,7 @@ validate $? "Folder Creation"
 
 for package in "$@"
 do
+    
 
     echo "Installing $package"
     echo "Before Installing we are checking if its already installed or not"
