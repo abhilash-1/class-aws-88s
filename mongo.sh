@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Installing Mongod in this server to set up DB"
+echo "Installing an application in this server to set up DB"
 
 User_id=$(id -u)
 R="\e[31m"
@@ -27,7 +27,7 @@ validate(){
 }
 
 echo "Creating Logs_folder in /var/logs/"
-mkdir -p "$Logs_folder"
+mkdir -p "$Logs_folder" &>>$Logs_file
 validate $? "Folder Creation"
 
 for package in "$@"
@@ -35,13 +35,13 @@ do
 
     echo "Installing $package"
     echo "Before Installing we arechecking if its already installed or not"
-    dnf list installed $package -y
+    dnf list installed $package -y &>>$Logs_file
     if [ $? -ne 0 ]; then
         echo -e "$Y The $package is already installed so...skipping it..."
         exit 1
     else
-        dnf install "$package" -y
-        validate $? "Nginx Installation"
+        dnf install "$package" -y &>>$Logs_file
+        validate $? "$package Installation"
     fi
 
 done
