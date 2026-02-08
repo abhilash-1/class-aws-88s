@@ -1,0 +1,47 @@
+#!/bin/bash
+
+echo "Instance creation"
+
+#Instance_ID="i-0bd866075fd00e6b3"
+SG_ID="sg-07afeb4dfbab74912"
+AMI_ID="ami-0220d79f3f480ecf5"
+Domain_name="100pushups.online"
+
+for instance in "$@"
+do
+    echo "Creating Instance"
+    Instance_ID=$(aws ec2 run-instances --image-id ami-0220d79f3f480ecf5 --instance-type t3.micro --security-group-ids sg-07afeb4dfbab74912 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]')
+
+    if [ $instance -eq "Frontend" ]; then
+        IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PublicIpAddress' --output text --region us-east-1)
+        echo "Public_IP:$Public_IP"
+        Record_name="$Domain_name"
+    else
+        IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text --region us-east-1)
+        echo "Private_IP:$Private_IP"
+        Record_name="$Instance.$Domain_name"
+    fi
+
+  
+    aws route53 change-resource-record-sets --hosted-zone-id Z07005823OXCP6HOGBEO5 --change-batch '{
+    "Comment": "Creating an A record for example.com",
+    "Changes": [
+        {
+        "Action": "CREATE",
+        "ResourceRecordSet": {
+            "Name": "'$Record_name'",
+            "Type": "A",
+            "TTL": 1,
+            "ResourceRecords": [
+            {
+                "Value": "'$IP'"
+            }
+            ]
+        }
+        }
+    ]
+    }
+    '
+    echo "Instance Created: $Instance"
+
+done
