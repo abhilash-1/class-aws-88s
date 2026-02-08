@@ -10,8 +10,10 @@ Domain_name="100pushups.online"
 for instance in "$@"
 do
     echo "Creating Instance"
-    Instance_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SG_ID --query 'Instances[0].InstanceId' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]')
+    Instance_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SG_ID --query 'Instances[0].InstanceId' --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --output text)
     echo "Created the Instance successfully=========="
+    aws ec2 wait instance-running --instance-ids "$Instance_ID" --region us-east-1
+    echo "Waiting until tge Instnace Ip available" 
     if [ $instance == "Frontend" ]; then
         IP=$(aws ec2 describe-instances --instance-ids $Instance_ID --query 'Reservations[*].Instances[*].PublicIpAddress' --output text --region us-east-1)
         echo "IP:$IP"
