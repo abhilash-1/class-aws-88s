@@ -52,6 +52,23 @@ do
         echo -e " $Y The $package is not installed so..installing it"
         dnf install "$package" -y &>>$Logs_file
         validate $? "$package Installation"
+        if [ $? -eq 0 ]; then
+            echo "Starting the $package server using SYSTEMCTL"
+            sytemctl start mongod &>> Logs_file
+            validate $? "Started the server"
+            systemctl enable mongod &>> Logs_file
+            validate $? "enabled the server"
+            systemctl status mongod &>> Logs_file
+            if [ $? -eq 0 ]; then
+                echo -e " $G The server is running fine ...."
+            else
+                echo -e "$R There is an error while starting the server sp, check the logs"
+                exit 1
+            fi
+        else
+            echo -e "$R There is an issue with installation...or while installing the appliaction"
+            exit 1
+
     fi
 
 done
