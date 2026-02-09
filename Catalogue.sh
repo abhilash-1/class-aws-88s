@@ -8,6 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 Logs_folder="/var/logs/shell-script"
 Logs_file="$Logs_folder/$0.log"
+Service_name="catalogue"
 
 
 if [ $User_id -ne 0 ]; then
@@ -59,7 +60,6 @@ do
     dnf list installed "$package" -y &>>$Logs_file
     if [ $? -eq 0 ]; then
         echo -e "$Y The $package is already installed so...skipping it..."
-        continue
     else
         echo -e " $Y The $package is not installed so..installing it"
         dnf install "$package" -y &>>$Logs_file
@@ -68,8 +68,12 @@ do
             echo "Installing all the required dependencies"
             #app_setup
             #User creation
-            useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-            validate $? "User Creation"
+            id roboshop &>>$Logs_file
+            if [ $? -ne 0 ]; then
+                useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+                validate $? "User Creation"sss
+            else
+                echo -e " $Y As the user is already available ....skipping the user creation"
 
             #creating app directory and unzip and storing it in app folder
             mkdir -p /app &>>$Logs_file
@@ -90,13 +94,13 @@ do
             validate $? "Dependencies installation"
 
             echo "Starting the $package server using SYSTEMCTL"
-            systemctl start mongod &>>$Logs_file
+            systemctl start $Service_name &>>$Logs_file
             validate $? "Started the server"
 
-            systemctl enable mongod &>>$Logs_file
+            systemctl enable $Service_name &>>$Logs_file
             validate $? "enabled the server"
 
-            systemctl status mongod &>>$Logs_file
+            systemctl status $Service_name &>>$Logs_file
             validate $? "The status of the server is"
         else
             echo -e "$R There is an issue with installation...or while installing the appliaction" | tee -a $Logs_file
