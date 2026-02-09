@@ -68,6 +68,7 @@ do
         else
             echo -e "$R There is an issue with installation...or while installing the appliaction"
             exit 1
+        fi
 
     fi
 
