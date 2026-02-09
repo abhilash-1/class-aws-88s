@@ -37,7 +37,7 @@ mkdir -p "$Logs_folder"
 validate $? "Folder Creation"
 
 echo "Adding the mongod link to the default path"
-cp mongo.repo /etc/yumd.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo
 validate $? "updated the config file"
 
 for package in "$@"
