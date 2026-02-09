@@ -60,6 +60,8 @@ do
             validate $? "enabled the server"
             systemctl status mongod &>>$Logs_file
             validate $? "The status of the server is"
+            sed /127.0.0.1/0.0.0.0/g /etc/mongod.conf
+            validate $? "Allowing all remote connections"
         else
             echo -e "$R There is an issue with installation...or while installing the appliaction" | tee -a $Logs_file
             exit 1
@@ -68,4 +70,6 @@ do
     fi
 
 done
+
+
 
