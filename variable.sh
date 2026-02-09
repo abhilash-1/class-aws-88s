@@ -8,3 +8,4 @@ B=100
 Tot=$(("$A+$B"))
 
 echo "The tot is: $Tot"
+echo $$
