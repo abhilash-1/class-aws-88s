@@ -71,10 +71,10 @@ do
             id roboshop &>>$Logs_file
             if [ $? -ne 0 ]; then
                 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-                validate $? "User Creation"sss
+                validate $? "User Creation"
             else
                 echo -e " $Y As the user is already available ....skipping the user creation"
-
+            fi
             #creating app directory and unzip and storing it in app folder
             mkdir -p /app &>>$Logs_file
             validate $? "Craeted app directory"
