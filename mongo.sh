@@ -25,10 +25,10 @@ echo "Checking if there are any parameters passed"
 
 validate(){
     if [ $1 -ne 0 ]; then
-        echo -e " $R $2: .....FAILED"
+        echo -e " $R $2: .....FAILED" | tee -a $Logs_file
         exit 1
     else
-        echo -e "$G $2:....SUCCESS"
+        echo -e "$G $2:....SUCCESS" | tee -a $Logs_file
     fi
 }
 
@@ -54,14 +54,14 @@ do
         validate $? "$package Installation"
         if [ $? -eq 0 ]; then
             echo "Starting the $package server using SYSTEMCTL"
-            sytemctl start mongod &>>$Logs_file
+            systemctl start mongod &>>$Logs_file
             validate $? "Started the server"
             systemctl enable mongod &>>$Logs_file
             validate $? "enabled the server"
             systemctl status mongod &>>$Logs_file
             validate $? "The status of the server is"
         else
-            echo -e "$R There is an issue with installation...or while installing the appliaction"
+            echo -e "$R There is an issue with installation...or while installing the appliaction" | tee -a $Logs_file
             exit 1
         fi
 
