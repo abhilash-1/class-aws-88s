@@ -36,6 +36,10 @@ echo "Creating Logs_folder in /var/logs/"
 mkdir -p "$Logs_folder"
 validate $? "Folder Creation"
 
+echo "Adding the mongod link to the default path"
+cp mongo.repo /etc/yumd.repos.d/mongo.repo
+validate $? "updated the config file"
+
 for package in "$@"
 do
     echo "Installing $package"
@@ -51,3 +55,4 @@ do
     fi
 
 done
+
