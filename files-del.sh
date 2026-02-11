@@ -14,10 +14,10 @@ else
 fi
 
 
-find /var/log/ -type f -mtime +14
+find /app-logs -type f -mtime +14
 if [ $? -eq 0 ]; then
     echo "deleting the old log files"
-    find /var/log/ -name "*.log" -type f -mtime +14 -delete
+    find /app-logs -name "*.log" -type f -mtime +14 -delete
     if [ $? -eq 0]; then
         echo "deleted the old log files"
     else
