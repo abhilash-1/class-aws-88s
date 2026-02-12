@@ -24,6 +24,6 @@ LogsFileCreation(){
     Logs_file="$Logs_folder/$0.log"
 
     echo "Creating Logs Folder"
-    mkdir -p Logs_folder
+    mkdir -p "$Logs_folder"
     validate $? "Logs folder creation successful"
 }
