@@ -27,5 +27,5 @@ else
         mv $source $destination &>>$Logs_file 
         validate $? "The migration of older log files is....."
         echo -e " $G The new path of older log files: $destination"
-
+    done <<<$Files_del
 fi
