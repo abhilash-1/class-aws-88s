@@ -2,9 +2,9 @@
 
 source ./common.sh
 
-R='\[e31m'
-G='\[e32m'
-Y='\[e33m'
+R="\[e31m"
+G="\[e32m"
+Y="\[e33m"
 
 
 source="/home/ec2-user/app-logs"
@@ -15,9 +15,9 @@ echo -e " $Y moving the files from $source to $destination"
 LogsFileCreation
 User_id
 
-echo "$Y Finding the files older than 14 days, and zipping them and moving to new location"
+echo -e "$Y Finding the files older than 14 days, and zipping them and moving to new location"
 
-Files_del=$(find $source -name "*.log" -mtime +14) | tee -a $Logs_file
+Files_del=$(find $source -name "*.log" -mtime +14) 
 if [ -z "$Files_del" ]; then
     echo -e " $R There are no files older than 14 days...So skipping"
 else
