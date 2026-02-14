@@ -2,10 +2,9 @@
 
 source ./common.sh
 
-R="\[e31m"
-G="\[e32m"
-Y="\[e33m"
-
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
 
 source="/home/ec2-user/app-logs"
 destination="/var/log/backup"
