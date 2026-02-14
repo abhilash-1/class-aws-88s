@@ -17,7 +17,7 @@ User_id
 
 echo -e "$Y Finding the files older than 14 days, and zipping them and moving to new location"
 
-Files_del=$(find $source -name "*.log" -mtime +14) s
+Files_del=$(find $source -name "*.log" -mtime +14) 
 if [ -z "$Files_del" ]; then
     echo -e " $R There are no files older than 14 days...So skipping"
 else
